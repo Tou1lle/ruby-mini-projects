@@ -16,5 +16,14 @@ class GameBoard
   end
 end
 
+class Player
+  attr_accessor :mark, :name
+
+  def initialize(name, mark)
+    @name = name
+    @mark = mark
+  end
+end
+
 gameboard = GameBoard.new()
 gameboard.print_gameboard()
