@@ -33,7 +33,7 @@ class Player
   end
 
   def change_turn
-    @turn = !(@turn)
+    self.turn = !(self.turn)
   end
 
   def to_s
@@ -52,22 +52,39 @@ class Game
   end
 
   def run()
-    @board.print_gameboard
-    select_place(2)
-    @board.print_gameboard
-    select_place(6)
-    @board.print_gameboard
+    self.board.print_gameboard
+    self.select_place()
   end
 
-  def select_place(index) 
-    @board.gameboard[index] = "X"
+  def select_place() 
+    while !(self.board.isGameOver) do
+      player_on_turn_arr = self.players.select { | player | player.turn == true } 
+      player_on_turn = player_on_turn_arr[0]
+      puts player_on_turn
+      puts "Choose a box to place your #{player_on_turn.mark}"
+      print ">> "
+      box = gets.chomp
+
+      if box.to_i == 0 || box.to_i > 9
+        puts "\n!!! The number must be between 1 - 9 included !!!\n\n"
+        next
+      end
+
+      self.board.gameboard[box.to_i - 1] = player_on_turn.mark
+
+      self.players.each { | player | player.change_turn }
+
+      self.board.print_gameboard
+    end
   end
 end
 
 
 puts "Hello Player 1. What is your name?"
+print ">> "
 player_x_name = gets.chomp
 puts "Hello Player 2. What is your name?"
+print ">> "
 player_o_name = gets.chomp
 playerX = Player.new(player_x_name, "X")
 playerX.turn = true
