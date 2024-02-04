@@ -70,6 +70,11 @@ class Game
         next
       end
 
+      if self.board.gameboard[box.to_i - 1] != " "
+        puts "\n!!! You must choose a blank box !!!\n\n"
+        next
+      end
+
       self.board.gameboard[box.to_i - 1] = player_on_turn.mark
 
       self.players.each { | player | player.change_turn }
