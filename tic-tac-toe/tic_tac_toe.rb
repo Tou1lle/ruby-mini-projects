@@ -21,6 +21,13 @@ class GameBoard
     puts "#{@gameboard[6]} | #{@gameboard[7]} | #{@gameboard[8]}"
     puts "\n"
   end
+
+  def check_draw()
+    if self.gameboard.none? { |box| box == " " }
+      self.isGameOver = true
+      puts "The game ended in DRAW!"
+    end
+  end
 end
 
 class Player
@@ -52,7 +59,7 @@ class Game
   end
 
   def run()
-    self.board.print_gameboard
+    self.board.print_gameboard()
     self.select_place()
   end
 
@@ -80,6 +87,8 @@ class Game
       self.players.each { | player | player.change_turn }
 
       self.board.print_gameboard
+      
+      self.board.check_draw()
     end
   end
 end
