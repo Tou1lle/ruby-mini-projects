@@ -31,6 +31,10 @@ class Player
     @mark = mark
     @turn = false
   end
+
+  def change_turn
+    @turn = !(@turn)
+  end
 end
 
 class Game
@@ -58,8 +62,12 @@ end
 
 
 playerX = Player.new("Black", "X")
+playerX.turn = true
 player0 = Player.new("Niger", "O")
 gameboard = GameBoard.new()
 
 game = Game.new(gameboard, playerX, player0)
 game.run()
+
+puts playerX.turn
+puts player0.turn
