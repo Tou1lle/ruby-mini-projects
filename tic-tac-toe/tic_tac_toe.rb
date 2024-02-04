@@ -1,7 +1,7 @@
 class GameBoard
   attr_accessor :gameboard, :isGameOver
 
-  @@WIN_CONDITIONS = [
+  WIN_CONDITIONS = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], # rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], # columns
     [0, 4, 8], [2, 4, 6]             # diagonal
@@ -26,6 +26,22 @@ class GameBoard
     if self.gameboard.none? { |box| box == " " }
       self.isGameOver = true
       puts "The game ended in DRAW!"
+    end
+  end
+
+  def check_win()
+    winner = false
+    for i in 0..WIN_CONDITIONS.length - 1 
+      box_1 =   self.gameboard[WIN_CONDITIONS[i][0]]
+      box_2 =   self.gameboard[WIN_CONDITIONS[i][1]]
+      box_3 =   self.gameboard[WIN_CONDITIONS[i][2]]
+
+      if (box_1 != " " && box_1 == box_2 && box_1 == box_3)
+        self.isGameOver = true
+        winner = true
+      end
+
+      winner
     end
   end
 end
@@ -87,8 +103,12 @@ class Game
       self.players.each { | player | player.change_turn }
 
       self.board.print_gameboard
-      
+
       self.board.check_draw()
+
+      if self.board.check_win()
+        puts "The Winner is #{player_on_turn.name}"
+      end
     end
   end
 end
@@ -97,9 +117,11 @@ end
 puts "Hello Player 1. What is your name?"
 print ">> "
 player_x_name = gets.chomp
+
 puts "Hello Player 2. What is your name?"
 print ">> "
 player_o_name = gets.chomp
+
 playerX = Player.new(player_x_name, "X")
 playerX.turn = true
 player0 = Player.new(player_o_name, "O")
