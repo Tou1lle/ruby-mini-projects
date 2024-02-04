@@ -35,15 +35,20 @@ class Player
   def change_turn
     @turn = !(@turn)
   end
+
+  def to_s
+    "Player name: #{self.name}\nPlayer mark: #{self.mark}"
+  end
 end
 
 class Game
-  attr_accessor :board, :player1, :player2
+  attr_accessor :board, :player1, :player2, :players
 
   def initialize(board, player1, player2)
     @board = board
     @player1 = player1
     @player2 = player2
+    @players = [@player1, player2]
   end
 
   def run()
@@ -60,14 +65,15 @@ class Game
 end
 
 
-
-playerX = Player.new("Black", "X")
+puts "Hello Player 1. What is your name?"
+player_x_name = gets.chomp
+puts "Hello Player 2. What is your name?"
+player_o_name = gets.chomp
+playerX = Player.new(player_x_name, "X")
 playerX.turn = true
-player0 = Player.new("Niger", "O")
+player0 = Player.new(player_o_name, "O")
+
 gameboard = GameBoard.new()
 
 game = Game.new(gameboard, playerX, player0)
 game.run()
-
-puts playerX.turn
-puts player0.turn
