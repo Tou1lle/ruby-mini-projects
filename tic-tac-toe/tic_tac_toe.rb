@@ -40,9 +40,8 @@ class GameBoard
         self.isGameOver = true
         winner = true
       end
-
-      winner
     end
+    winner
   end
 end
 
@@ -104,11 +103,11 @@ class Game
 
       self.board.print_gameboard
 
-      self.board.check_draw()
-
       if self.board.check_win()
         puts "The Winner is #{player_on_turn.name}"
       end
+
+      self.board.check_draw()
     end
   end
 end
