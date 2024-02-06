@@ -7,12 +7,48 @@ class MastermindBoard
 
   def print_gameboard() 
     puts "-----------------"
-    @gameboard.reverse_each do |row|
+    self.gameboard.reverse_each do |row|
       puts "| " + row.join(" | ") + " |"
       puts "-----------------"
     end
   end
 end
+
+class ComputerPlayer
+  attr_accessor :secret_code, :hidden_code
+
+  def initialize()
+    @secret_code = ["R", "G", "B", "Y"]
+    @hidden_code = ["#", "#", "#", "#"]
+  end
+
+  def print_hidden_code
+    print "| "
+    self.hidden_code.each do |code|
+      print code + " | "
+    end
+    puts "\n"
+  end
+
+  def print_shown_code()
+    print "| "
+    self.secret_code.each do |code|
+      print code + " | "
+    end
+    puts "\n"
+  end
+
+  def random_secret_code()
+    self.secret_code = self.secret_code.shuffle()
+  end
+end
+
+test_pc = ComputerPlayer.new()
+test_pc.print_hidden_code()
+test_pc.print_shown_code()
+
+test_pc.random_secret_code
+test_pc.print_shown_code
 
 test = MastermindBoard.new()
 test.print_gameboard()
