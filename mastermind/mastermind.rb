@@ -45,6 +45,15 @@ class ComputerPlayer
   end
 end
 
+class HumanPlayer
+  attr_accessor :name, :answer
+
+  def initialize(name)
+    @name = name
+    @answer = []
+  end
+end
+
 test_pc = ComputerPlayer.new()
 test_pc.print_hidden_code()
 test_pc.print_secret_code()
