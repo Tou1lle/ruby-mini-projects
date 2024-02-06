@@ -52,7 +52,20 @@ class HumanPlayer
     @name = name
     @answer = []
   end
+
+  def get_answer()
+    answer = gets
+    answer_array = answer.split(" ")
+      while answer_array.length != 4
+        puts "You have to write 4 letter representing color in format : R G B Y"
+        answer = gets
+        answer_array = answer.split(" ")
+      end
+    answer_array
+  end
 end
+
+test_human = HumanPlayer.new("Tuan")
 
 test_pc = ComputerPlayer.new()
 test_pc.print_hidden_code()
@@ -63,3 +76,5 @@ test_pc.print_secret_code
 
 test = MastermindBoard.new()
 test.print_gameboard()
+
+answer = test_human.get_answer()
