@@ -39,7 +39,9 @@ class ComputerPlayer
   end
 
   def random_secret_code()
-    self.secret_code = self.secret_code.shuffle()
+    self.secret_code = self.secret_code.map do | code |
+      code = self.secret_code.sample()
+    end
   end
 end
 
