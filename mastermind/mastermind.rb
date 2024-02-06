@@ -30,7 +30,7 @@ class ComputerPlayer
     puts "\n"
   end
 
-  def print_shown_code()
+  def print_secret_code()
     print "| "
     self.secret_code.each do |code|
       print code + " | "
@@ -47,10 +47,10 @@ end
 
 test_pc = ComputerPlayer.new()
 test_pc.print_hidden_code()
-test_pc.print_shown_code()
+test_pc.print_secret_code()
 
 test_pc.random_secret_code
-test_pc.print_shown_code
+test_pc.print_secret_code
 
 test = MastermindBoard.new()
 test.print_gameboard()
