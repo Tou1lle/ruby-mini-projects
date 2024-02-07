@@ -65,6 +65,33 @@ class HumanPlayer
   end
 end
 
+class GameLogic
+  attr_accessor :mastermind_board, :human_player, :computer_player, :endgame
+
+  def initialize(gameboard, human, computer)
+    @mastermind_board = gameboard
+    @human_player = human
+    @computer_player = computer
+    @endgame = false
+  end
+
+  def print_answer(answer)
+    self.mastermind_board.gameboard.each do | row |
+      if row.include?("?")
+        for i in 0..3
+          row[i] = answer[i]
+        end
+
+        break
+
+      end
+    end
+
+    mastermind_board.print_gameboard()
+  end
+
+end
+
 test_human = HumanPlayer.new("Tuan")
 
 test_pc = ComputerPlayer.new()
@@ -74,7 +101,10 @@ test_pc.print_secret_code()
 test_pc.random_secret_code
 test_pc.print_secret_code
 
-test = MastermindBoard.new()
-test.print_gameboard()
+test_board = MastermindBoard.new()
+test_board.print_gameboard()
 
 answer = test_human.get_answer()
+
+game = GameLogic.new(test_board, test_human, test_pc)
+game.print_answer(answer)
