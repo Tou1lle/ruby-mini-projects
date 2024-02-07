@@ -22,7 +22,7 @@ class ComputerPlayer
     @hidden_code = ["#", "#", "#", "#"]
   end
 
-  def print_hidden_code
+  def print_hidden_code()
     print "| "
     self.hidden_code.each do |code|
       print code + " | "
@@ -87,9 +87,23 @@ class GameLogic
       end
     end
 
-    mastermind_board.print_gameboard()
+    self.computer_player.print_hidden_code() # print for now for testing
+    self.computer_player.print_secret_code() # print for now for testing
+    self.mastermind_board.print_gameboard()
   end
 
+  def check_black_rule(answer)
+    right_answers = []
+    secret_code = self.computer_player.secret_code
+    
+    for i in 0..3
+      if answer[i].upcase == secret_code[i]
+        right_answers.push(answer[i].upcase)
+      end
+    end
+
+    right_answers
+  end
 end
 
 test_human = HumanPlayer.new("Tuan")
@@ -108,3 +122,6 @@ answer = test_human.get_answer()
 
 game = GameLogic.new(test_board, test_human, test_pc)
 game.print_answer(answer)
+
+right_answer = game.check_black_rule(answer)
+p right_answer
