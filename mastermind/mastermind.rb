@@ -93,16 +93,30 @@ class GameLogic
   end
 
   def check_black_rule(answer)
-    right_answers = []
+    right_answers = 0
     secret_code = self.computer_player.secret_code
     
     for i in 0..3
       if answer[i].upcase == secret_code[i]
-        right_answers.push(answer[i].upcase)
+        right_answers += 1
       end
     end
 
     right_answers
+  end
+
+  def check_white_rule(answer)
+    right_color = 0
+    secret_code = self.computer_player.secret_code.clone
+
+    answer.each do | color |
+      if secret_code.include?(color.upcase)
+        right_color += 1
+        secret_code.delete_at(secret_code.index(color.upcase))
+      end
+    end
+
+    right_color
   end
 end
 
@@ -124,4 +138,7 @@ game = GameLogic.new(test_board, test_human, test_pc)
 game.print_answer(answer)
 
 right_answer = game.check_black_rule(answer)
+right_color = game.check_white_rule(answer)
 p right_answer
+p right_color
+test_pc.print_secret_code
