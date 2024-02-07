@@ -93,21 +93,21 @@ class GameLogic
   end
 
   def check_black_rule(answer)
-    right_answers = 0
+    right_answers = []
     secret_code = self.computer_player.secret_code
     
     for i in 0..3
       if answer[i].upcase == secret_code[i]
-        right_answers += 1
+        right_answers.push(answer[i].upcase)
       end
     end
 
     right_answers
   end
 
-  def check_white_rule(answer)
+  def check_white_rule(answer, wrong_answers)
     right_color = 0
-    secret_code = self.computer_player.secret_code.clone
+    secret_code = wrong_answers.clone
 
     answer.each do | color |
       if secret_code.include?(color.upcase)
@@ -117,6 +117,26 @@ class GameLogic
     end
 
     right_color
+  end
+
+  def result_without_correct(correct_answers, secret_code)
+    code = self.computer_player.secret_code.clone
+
+    correct_answers.each do | color |
+      code.delete_at(code.index(color))
+    end
+
+    code
+  end
+
+  def answer_without_correct(answer, correct_answers)
+    code = answer.clone
+
+    correct_answers.each do | color |
+      code.delete_at(code.index(color))
+    end
+
+    code
   end
 end
 
@@ -138,7 +158,22 @@ game = GameLogic.new(test_board, test_human, test_pc)
 game.print_answer(answer)
 
 right_answer = game.check_black_rule(answer)
-right_color = game.check_white_rule(answer)
+only_result = game.result_without_correct(right_answer, test_pc.secret_code)
+only_answer = game.answer_without_correct(answer, right_answer)
+
+print "result without correct ones: "
+p only_result
+
+print "answer without correct ones: "
+p only_answer
+
+right_color = game.check_white_rule(only_answer, only_result)
+
+print "the color that was answered right: " 
 p right_answer
+
+print "the number of correct color without the right ones: "
 p right_color
+
+print "the secret code: "
 test_pc.print_secret_code
