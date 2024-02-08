@@ -183,41 +183,7 @@ class GameLogic
 end
 
 human_player = HumanPlayer.new("Tuan")
-
 pc_player = ComputerPlayer.new()
-#pc_player.print_hidden_code()
-# pc_player.print_secret_code()
-
-#pc_player.random_secret_code
-#pc_player.print_secret_code
-
 mastermind_board = MastermindBoard.new()
-#mastermind_board.print_gameboard()
-
-#answer = human_player.get_answer()
-
 game = GameLogic.new(mastermind_board, human_player, pc_player)
-#game.print_answer(answer)
-
-#right_answer = game.check_black_rule(answer)
-#only_wrong_result = game.result_without_correct(right_answer, pc_player.secret_code)
-#only_wrong_answer = game.answer_without_correct(answer, right_answer)
-
-#print "result without correct ones: "
-#p only_wrong_result
-
-#print "answer without correct ones: "
-#p only_wrong_answer
-
-#right_color = game.check_white_rule(only_wrong_answer, only_wrong_result)
-
-#print "the color that was answered right: " 
-#p right_answer
-
-#print "the number of correct color without the right ones: "
-#p right_color
-
-#print "the secret code: "
-#pc_player.print_secret_code
-
 game.start_game()
