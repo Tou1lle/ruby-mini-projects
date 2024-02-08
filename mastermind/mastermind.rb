@@ -133,47 +133,89 @@ class GameLogic
     code = answer.clone
 
     correct_answers.each do | color |
-      code.delete_at(code.index(color))
+      if code.index(color) == nil
+        next
+      else
+        code.delete_at(code.index(color)) 
+      end
     end
 
     code
   end
+
+  def start_game()
+     
+    puts "Hello #{self.human_player.name}, welcome to the Mastermind console game!"
+    self.computer_player.random_secret_code()
+    ending_message = ""
+
+    self.computer_player.print_hidden_code()
+    self.mastermind_board.print_gameboard()
+
+    12.times do 
+      answer = self.human_player.get_answer()
+      self.print_answer(answer)
+
+      right_answer = self.check_black_rule(answer)
+      only_wrong_result = self.result_without_correct(right_answer, self.computer_player.secret_code)
+      only_wrong_answer = self.answer_without_correct(answer, right_answer)
+
+      print "result without correct ones: "
+      p only_wrong_result
+
+      print "answer without correct ones: "
+      p only_wrong_answer
+
+      right_color = self.check_white_rule(only_wrong_answer, only_wrong_result)
+
+      print "the color that was answered right: " 
+      p right_answer.length
+
+      print "the number of correct color without the right ones: "
+      p right_color
+
+      print "the secret code: "
+      self.computer_player.print_secret_code
+    end
+  end 
 end
 
-test_human = HumanPlayer.new("Tuan")
+human_player = HumanPlayer.new("Tuan")
 
-test_pc = ComputerPlayer.new()
-test_pc.print_hidden_code()
-test_pc.print_secret_code()
+pc_player = ComputerPlayer.new()
+#pc_player.print_hidden_code()
+# pc_player.print_secret_code()
 
-test_pc.random_secret_code
-test_pc.print_secret_code
+#pc_player.random_secret_code
+#pc_player.print_secret_code
 
-test_board = MastermindBoard.new()
-test_board.print_gameboard()
+mastermind_board = MastermindBoard.new()
+#mastermind_board.print_gameboard()
 
-answer = test_human.get_answer()
+#answer = human_player.get_answer()
 
-game = GameLogic.new(test_board, test_human, test_pc)
-game.print_answer(answer)
+game = GameLogic.new(mastermind_board, human_player, pc_player)
+#game.print_answer(answer)
 
-right_answer = game.check_black_rule(answer)
-only_result = game.result_without_correct(right_answer, test_pc.secret_code)
-only_answer = game.answer_without_correct(answer, right_answer)
+#right_answer = game.check_black_rule(answer)
+#only_wrong_result = game.result_without_correct(right_answer, pc_player.secret_code)
+#only_wrong_answer = game.answer_without_correct(answer, right_answer)
 
-print "result without correct ones: "
-p only_result
+#print "result without correct ones: "
+#p only_wrong_result
 
-print "answer without correct ones: "
-p only_answer
+#print "answer without correct ones: "
+#p only_wrong_answer
 
-right_color = game.check_white_rule(only_answer, only_result)
+#right_color = game.check_white_rule(only_wrong_answer, only_wrong_result)
 
-print "the color that was answered right: " 
-p right_answer
+#print "the color that was answered right: " 
+#p right_answer
 
-print "the number of correct color without the right ones: "
-p right_color
+#print "the number of correct color without the right ones: "
+#p right_color
 
-print "the secret code: "
-test_pc.print_secret_code
+#print "the secret code: "
+#pc_player.print_secret_code
+
+game.start_game()
