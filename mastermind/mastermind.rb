@@ -149,12 +149,13 @@ class GameLogic
      
     puts "Hello #{self.human_player.name}, welcome to the Mastermind console game!"
     self.computer_player.random_secret_code()
-    ending_message = ""
+    ending_message = "YOU LOSE!"
 
     self.computer_player.print_hidden_code()
     self.mastermind_board.print_gameboard()
 
     12.times do 
+      print ">>  "
       answer = self.human_player.get_answer()
       self.print_answer(answer)
 
@@ -178,7 +179,15 @@ class GameLogic
 
       print "the secret code: "
       self.computer_player.print_secret_code
+
+      if right_answer.length == 4
+        ending_message = "YOU WIN!"
+        break 
+      end
     end
+
+    puts ending_message
+    puts "GAME OVER"
   end 
 end
 
