@@ -7,7 +7,7 @@ end
 class HangmanGame 
   @@LIMIt = 9
 
-  attr_accessor :game_ended, :number_of_tries, :words, :chosen_word, :hidden_word
+  attr_accessor :game_ended, :number_of_tries_left, :words, :chosen_word, :hidden_word
 
   def initialize(words_for_game)
     @game_ended = false
@@ -37,6 +37,25 @@ class HangmanGame
 
     answer
   end
+
+  def check_asnwer(answer)
+    helper = self.hidden_word.split(" ")
+
+    if self.chosen_word.include?(answer)
+
+      self.chosen_word.split("").each_with_index do | letter, i |
+        if self.chosen_word[i] == answer
+          helper[i] = answer
+        end
+      end
+
+    else 
+      self.number_of_tries_left -= 1
+    end
+
+    self.hidden_word = helper.join(" ")
+  end
+
 end
 
 hangman = HangmanGame.new(hangman_words)
@@ -54,3 +73,11 @@ puts hangman.hidden_word
 answer = hangman.choose_letter
 print "Chosen letter: "
 puts answer
+
+print "Number of tries left: "
+puts hangman.number_of_tries_left
+hangman.check_asnwer(answer)
+print "Chosen word hidden: "
+puts hangman.hidden_word
+print "Number of tries left: "
+puts hangman.number_of_tries_left
