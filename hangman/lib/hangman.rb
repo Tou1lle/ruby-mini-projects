@@ -5,13 +5,13 @@ hangman_words = google_words.select do | word |
 end
 
 class HangmanGame 
-  @@LIMIt = 9
+  @@LIMIT = 9
 
   attr_accessor :game_ended, :number_of_tries_left, :words, :chosen_word, :hidden_word, :used_letters
 
   def initialize(words_for_game)
     @game_ended = false
-    @number_of_tries_left = @@LIMIt
+    @number_of_tries_left = @@LIMIT
     @words = words_for_game
     @chosen_word
     @hidden_word
@@ -60,35 +60,45 @@ class HangmanGame
     self.hidden_word = helper.join(" ")
   end
 
+  def check_won_game
+    !self.hidden_word.include?("_")
+  end
+
+  def play_game
+    self.choose_word()
+    print "The secret word is: "
+    puts self.chosen_word + "\n"
+    ending_message = "You didn't guess the word, you lost!"
+
+    while self.game_ended == false
+      if self.check_won_game
+        ending_message = "You guessed the word! You won!"
+        self.game_ended == true
+        break
+      end
+
+      if number_of_tries_left == 0
+        self.game_ended == true
+        break
+      end
+
+      print "Number of lives left: "
+      puts self.number_of_tries_left
+
+      print "Used letters: "
+      puts self.used_letters
+
+      print "The hidden word: "
+      puts self.hidden_word
+
+      answer = self.choose_letter
+      self.check_asnwer(answer)
+      puts "\n"
+    end
+
+    puts ending_message
+  end
 end
 
 hangman = HangmanGame.new(hangman_words)
-
-print "Chosen word before method: "
-puts hangman.chosen_word
-
-print "Chosen word after method: "
-hangman.choose_word
-puts hangman.chosen_word
-
-print "Chosen word hidden: "
-puts hangman.hidden_word
-
-for a in 1..5 do
-  answer = hangman.choose_letter
-  print "Chosen letter: "
-  puts answer
-
-  print "Number of tries left: "
-  puts hangman.number_of_tries_left
-
-  hangman.check_asnwer(answer)
-  print "Chosen word hidden: "
-  puts hangman.hidden_word
-
-  print "Number of tries left: "
-  puts hangman.number_of_tries_left
-
-  print "Used letters: "
-  puts hangman.used_letters
-end
+hangman.play_game()
