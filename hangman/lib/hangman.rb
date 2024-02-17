@@ -7,7 +7,7 @@ end
 class HangmanGame 
   @@LIMIt = 9
 
-  attr_accessor :game_ended, :number_of_tries_left, :words, :chosen_word, :hidden_word
+  attr_accessor :game_ended, :number_of_tries_left, :words, :chosen_word, :hidden_word, :used_letters
 
   def initialize(words_for_game)
     @game_ended = false
@@ -15,6 +15,7 @@ class HangmanGame
     @words = words_for_game
     @chosen_word
     @hidden_word
+    @used_letters = ""
   end
 
   def choose_word
@@ -50,7 +51,10 @@ class HangmanGame
       end
 
     else 
+
       self.number_of_tries_left -= 1
+      self.used_letters.concat(answer)
+
     end
 
     self.hidden_word = helper.join(" ")
@@ -70,14 +74,21 @@ puts hangman.chosen_word
 print "Chosen word hidden: "
 puts hangman.hidden_word
 
-answer = hangman.choose_letter
-print "Chosen letter: "
-puts answer
+for a in 1..5 do
+  answer = hangman.choose_letter
+  print "Chosen letter: "
+  puts answer
 
-print "Number of tries left: "
-puts hangman.number_of_tries_left
-hangman.check_asnwer(answer)
-print "Chosen word hidden: "
-puts hangman.hidden_word
-print "Number of tries left: "
-puts hangman.number_of_tries_left
+  print "Number of tries left: "
+  puts hangman.number_of_tries_left
+
+  hangman.check_asnwer(answer)
+  print "Chosen word hidden: "
+  puts hangman.hidden_word
+
+  print "Number of tries left: "
+  puts hangman.number_of_tries_left
+
+  print "Used letters: "
+  puts hangman.used_letters
+end
