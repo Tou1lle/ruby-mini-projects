@@ -26,6 +26,17 @@ class HangmanGame
     self.hidden_word = self.chosen_word.gsub(/[a-z]/, "_")
     self.hidden_word = self.hidden_word.split("").join(" ")
   end
+
+  def choose_letter
+    answer = gets.chomp
+
+    while answer.length != 1
+      puts "Choose 1 letter!"
+      answer = gets.chomp
+    end
+
+    answer
+  end
 end
 
 hangman = HangmanGame.new(hangman_words)
@@ -39,3 +50,7 @@ puts hangman.chosen_word
 
 print "Chosen word hidden: "
 puts hangman.hidden_word
+
+answer = hangman.choose_letter
+print "Chosen letter: "
+puts answer
