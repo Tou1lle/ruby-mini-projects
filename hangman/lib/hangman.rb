@@ -41,6 +41,11 @@ class HangmanGame
 
   def check_asnwer(answer)
     helper = self.hidden_word.split(" ")
+    if self.hidden_word.include?(answer) || self.used_letters.include?(answer)
+      puts "\n"
+      puts "!! You already guessed this letter !!"
+      return
+    end
 
     if self.chosen_word.include?(answer)
 
