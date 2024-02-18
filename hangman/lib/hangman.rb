@@ -1,3 +1,5 @@
+require "json"
+
 google_words = File.readlines("google-10000-english-no-swears.txt")
 hangman_words = google_words.select do | word |
   word.strip!
@@ -69,6 +71,22 @@ class HangmanGame
     !self.hidden_word.include?("_")
   end
 
+  def save_game_to_json
+    JSON.dump({
+      :game_ended => @game_ended,
+      :number_of_tries_left => @number_of_tries_left,
+      :chosen_word => @chosen_word,
+      :hidden_word => @hidden_word,
+      :used_letters => @used_letters
+    })
+  end
+
+  def save_game_to_file(string_json)
+    File.open("hangman_game.json", "w") do |file|
+      file.write(string_json)
+    end
+  end
+
   def play_game
     self.choose_word()
     print "The secret word is: "
@@ -96,6 +114,15 @@ class HangmanGame
       print "The hidden word: "
       puts self.hidden_word
 
+      print "Do you want to save the game? (y/n): "
+      save_game_answer = gets.chomp
+
+      if save_game_answer == "y"
+        saved_game = self.save_game_to_json
+        self.save_game_to_file(saved_game)
+      end
+
+      print "Guess a letter: "
       answer = self.choose_letter
       self.check_asnwer(answer)
       puts "\n"
