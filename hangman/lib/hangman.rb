@@ -87,8 +87,18 @@ class HangmanGame
     end
   end
 
+  def self.game_from_json(words)
+    data = JSON.load(File.read("hangman_game.json"))
+    game = self.new(words)
+    game.game_ended = data["game_ended"]
+    game.number_of_tries_left = data["number_of_tries_left"]
+    game.chosen_word = data["chosen_word"]
+    game.hidden_word = data["hidden_word"]
+    game.used_letters = data["used_letters"]
+    game
+  end
+
   def play_game
-    self.choose_word()
     print "The secret word is: "
     puts self.chosen_word + "\n"
     ending_message = "You didn't guess the word, you lost!"
@@ -132,5 +142,18 @@ class HangmanGame
   end
 end
 
-hangman = HangmanGame.new(hangman_words)
-hangman.play_game()
+print "Do you want to continue from last game or new game? (new/continue): "
+answer_game = gets.chomp
+while (answer_game != "new" && answer_game != "continue")
+  puts "Your answer must be \"new\" or \"continue\""
+  answer_game = gets.chomp
+end
+
+if answer_game == "new"
+  hangman = HangmanGame.new(hangman_words)
+  hangman.choose_word()
+  hangman.play_game()
+else
+  hangman = HangmanGame.game_from_json(hangman_words)
+  hangman.play_game()
+end
