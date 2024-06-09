@@ -1,3 +1,4 @@
+# A player
 class Player
   attr_accessor :mark, :name, :turn
 
@@ -8,10 +9,10 @@ class Player
   end
 
   def change_turn
-    self.turn = !(self.turn)
+    self.turn = !turn
   end
 
   def to_s
-    "Player name: #{self.name}\nPlayer mark: #{self.mark}"
+    "Player name: #{name}\nPlayer mark: #{mark}"
   end
 end

@@ -1,3 +1,4 @@
+# The game contains logic for selecting place on the gamboard
 class Game
   attr_accessor :board, :player1, :player2, :players
 
@@ -8,14 +9,14 @@ class Game
     @players = [player1, player2]
   end
 
-  def run()
-    self.board.print_gameboard()
-    self.select_place()
+  def run
+    board.print_gameboard
+    select_place
   end
 
-  def select_place() 
-    while !(self.board.isGameOver) do
-      player_on_turn_arr = self.players.select { | player | player.turn == true } 
+  def select_place
+    until board.isGameOver
+      player_on_turn_arr = players.select { |player| player.turn == true }
       player_on_turn = player_on_turn_arr[0]
       puts player_on_turn
       puts "Choose a box to place your #{player_on_turn.mark}"
@@ -27,22 +28,20 @@ class Game
         next
       end
 
-      if self.board.gameboard[box.to_i - 1] != " "
+      if board.gameboard[box.to_i - 1] != " "
         puts "\n!!! You must choose a blank box !!!\n\n"
         next
       end
 
-      self.board.gameboard[box.to_i - 1] = player_on_turn.mark
+      board.gameboard[box.to_i - 1] = player_on_turn.mark
 
-      self.players.each { | player | player.change_turn }
+      players.each { |player| player.change_turn }
 
-      self.board.print_gameboard
+      board.print_gameboard
 
-      if self.board.check_win()
-        puts "The Winner is #{player_on_turn.name}"
-      end
+      puts "The Winner is #{player_on_turn.name}" if board.check_win
 
-      self.board.check_draw()
+      board.check_draw
     end
   end
 end

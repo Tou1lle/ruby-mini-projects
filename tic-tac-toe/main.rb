@@ -10,11 +10,11 @@ puts "Hello Player 2. What is your name?"
 print ">> "
 player_o_name = gets.chomp
 
-playerX = Player.new(player_x_name, "X")
-playerX.turn = true
-player0 = Player.new(player_o_name, "O")
+player_x = Player.new(player_x_name, "X")
+player_x.turn = true
+player_o = Player.new(player_o_name, "O")
 
-gameboard = GameBoard.new()
+gameboard = GameBoard.new
 
-game = Game.new(gameboard, playerX, player0)
-game.run()
+game = Game.new(gameboard, player_x, player_o)
+game.run
