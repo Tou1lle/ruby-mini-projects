@@ -1,3 +1,4 @@
+# class
 class MastermindBoard 
   attr_accessor :gameboard
 

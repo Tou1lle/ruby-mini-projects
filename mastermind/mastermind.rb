@@ -2,6 +2,7 @@ require_relative "lib/mastermind_board"
 require_relative "lib/human_player"
 require_relative "lib/computer_player"
 
+# GameLogic starts the game and checks the answers of the player vs the pc code
 class GameLogic
   attr_accessor :mastermind_board, :human_player, :computer_player, :endgame
 

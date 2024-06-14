@@ -1,3 +1,5 @@
+# Human player represents the user
+# Users write their answers to the console
 class HumanPlayer
   attr_accessor :name, :answer
 
