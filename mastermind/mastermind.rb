@@ -92,7 +92,7 @@ class GameLogic
 
     12.times do 
       print ">> "
-      answer = self.human_player.get_answer()
+      answer = self.human_player.answer
       self.print_answer(answer)
 
       right_answer = self.check_black_rule(answer)
