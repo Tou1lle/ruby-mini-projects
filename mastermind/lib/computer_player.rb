@@ -2,7 +2,7 @@
 class ComputerPlayer
   attr_accessor :secret_code, :hidden_code
 
-  def initialize()
+  def initialize
     @secret_code = %w[R G B Y]
     @hidden_code = ["#", "#", "#", "#"]
   end
