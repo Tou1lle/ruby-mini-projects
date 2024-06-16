@@ -15,7 +15,7 @@ class Game
   end
 
   def select_place
-    until board.isGameOver
+    until board.is_game_over
       player_on_turn_arr = players.select { |player| player.turn == true }
       player_on_turn = player_on_turn_arr[0]
       puts player_on_turn
